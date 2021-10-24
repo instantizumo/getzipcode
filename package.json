@@ -19,5 +19,9 @@
     "pug": "^2.0.0-beta6",
     "request": "^2.88.2",
     "serve-favicon": "^2.3.0"
+  },
+   "engines": {
+    "node": "12.18.3",
+    "npm": "6.14.6"
   }
 }
