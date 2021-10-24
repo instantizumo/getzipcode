@@ -1,0 +1,3 @@
+C:\JOB\study\git\GetZipCode\obj\Debug\GetZipCode.njsprojAssemblyReference.cache
+C:\JOB\study\git\GetZipCode\obj\Debug\GetZipCode.njsproj.CoreCompileInputs.cache
+C:\JOB\study\git\GetZipCode\bin\Microsoft.NodejsTools.WebRole.dll
