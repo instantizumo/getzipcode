@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <title><%=title %></title>
+    <title>郵便番号検索</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"> </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"> </script>
 </head>
 
 <body>
@@ -20,16 +20,52 @@
                 <div class="form-group">
                     <label for="address">住所:</label>
                     <div class="form-inline">
-                        <input type="address" id="address" class="form-control" style="min-width: 300px;">
-                        <button id="search-btn" type="button" class="btn btn-primary">検索</button>
-                        <button id="clear-btn" type="button" class="btn btn-primary ml-2">クリア</button>
+                        <div class="input-group"> 
+                            <input type="address" id="address" class="form-control" style="min-width: 300px;">
+                            <div class="input-group-append">
+                                <button id="search-btn" type="button" class="btn btn-primary">検索</button>
+                            </div>
+                            <div class="input-group-append">
+                                <button id="clear-btn" type="button" class="btn btn-secondary">クリア</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zipcode">郵便番号:</label>
                     <div class="form-inline">
-                        <input type="text" id="zipcode" class="form-control" readonly>
-                        <button id="copy-btn" type="button" class="btn btn-primary ml-2">コピー</button>
+                        <div class="input-group"> 
+                            <input type="text" id="zipcode" class="form-control" readonly>
+                            <div class="input-group-append">
+                                <button id="copy-btn" type="button" class="btn btn-primary">コピー</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="toast" class="toast " data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                    
+                </div>
+                
+                <div style="display: none;" id="successMessage">
+                    <div class="toast-body alert-success p-0">
+                        <div class="alert mb-0" role="alert">
+                            <svg style="margin-bottom: 3px; margin-right: 3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                            </svg>
+                            郵便番号を取得しました。
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none;" id="failMessage">
+                    <div class="toast-body alert-danger p-0">
+                        <div class="alert mb-0" role="alert">
+                            <svg style="margin-bottom: 3px; margin-right: 3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+                            </svg>
+                            取得に失敗しました。
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +74,7 @@
 </body>
 </html>
 
-<script>
+<script type="text/javascript">
     $(function() {
         $('#search-btn').click(function() {
             $('#zipcode').val("");
@@ -50,19 +86,25 @@
                     // 成功
                     if (data.status == 200) {
                         if (data.length > 0) {
-                        var str = data.items[0].zipcode;
-                        const a = str.slice(0, 3);
-                        const b = '-';
-                        const c = str.slice(3);
-                        var zipcode = (a + b + c);
+                            var str = data.items[0].zipcode;
+                            const a = str.slice(0, 3);
+                            const b = '-';
+                            const c = str.slice(3);
+                            var zipcode = (a + b + c);
                             $('#zipcode').val(zipcode);
+                            $("#toast").html($("#successMessage").html());
+                            $("#toast").toast('show');
                         }
                     } else {
-                        $('#zipcode').val("失敗！");
+                        $('#zipcode').val("---");
+                        $("#toast").html($("#failMessage").html());
+                        $("#toast").toast('show');
                     }
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
-                    $('#zipcode').val("失敗！");
+                    $('#zipcode').val("");
+                    $("#toast").html($("#failMessage").html());
+                    $("#toast").toast('show');
                 });
         });
         
